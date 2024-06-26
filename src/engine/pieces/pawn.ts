@@ -14,15 +14,15 @@ export default class Pawn extends Piece {
     public getAvailableMoves(board: Board) {
         var output: Square[] = [];
         var pos = board.findPiece(this);
-        if (this.player1 == Player.WHITE) {
+        if (this.player1 == Player.WHITE && board.otherpiecechecker(pos,1,0)) {
             output.push(Square.at((pos.row+1),(pos.col)));
-            if (this.has_moved == false) {
+            if (this.has_moved == false && board.otherpiecechecker(pos,2,0)) {
                 output.push(Square.at((pos.row+2),(pos.col)));
             }
         }
-        if (this.player1 == Player.BLACK) {
+        if (this.player1 == Player.BLACK && board.otherpiecechecker(pos,-1,0)) {
             output.push(Square.at((pos.row-1),(pos.col)));
-            if (this.has_moved == false) {
+            if (this.has_moved == false && board.otherpiecechecker(pos,1,0)) {
                 output.push(Square.at((pos.row-2),(pos.col)));
             }
         }
@@ -37,5 +37,7 @@ export default class Pawn extends Piece {
         board.movePiece(currentSquare, newSquare);
         this.has_moved = true
     }
+
+
 
 }

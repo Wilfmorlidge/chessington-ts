@@ -20,6 +20,13 @@ export default class Board {
         return this.board[square.row][square.col];
     }
 
+    public otherpiecechecker(pos:Square,row:number,col:number) {
+        if (this.getPiece(Square.at((pos.row+row),(pos.col+col))) == undefined) {
+            return true
+        }
+        return false
+    }
+
     public findPiece(pieceToFind: Piece) {
         for (let row = 0; row < this.board.length; row++) {
             for (let col = 0; col < this.board[row].length; col++) {
