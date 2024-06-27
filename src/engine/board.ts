@@ -21,10 +21,13 @@ export default class Board {
     }
 
     public otherpiecechecker(pos:Square,row:number,col:number) {
-        if (this.getPiece(Square.at((pos.row+row),(pos.col+col))) == undefined) {
-            return true
+        if (pos.row+row <= GameSettings.BOARD_SIZE-1 && pos.row+row >= 0 && pos.col <= GameSettings.BOARD_SIZE-1 && pos.col >= 0) {
+            if (this.getPiece(Square.at((pos.row+row),(pos.col+col))) == undefined) {
+                return true
+            } else {
+                return false
+            }
         } else {
-
             return false
         }
     }
