@@ -18,22 +18,22 @@ export default class Rook extends Piece {
         var collision3: Boolean = false;
         var collision4: Boolean = false;
         for (let i = 1;i <= (GameSettings.BOARD_SIZE-1);i++) {
-            if (pos.col+i <= GameSettings.BOARD_SIZE-1 && board.otherpiecechecker(pos,0,1) && collision1 == false) {
+            if (pos.col+i <= GameSettings.BOARD_SIZE-1 && board.otherpiecechecker(pos,0,i) && collision1 == false) {
                 output.push(Square.at((pos.row),(pos.col+i)));
-            }else {
+            } else {
                 collision1 = true
             }
-            if (pos.col-i >= 0 && board.otherpiecechecker(pos,0,-1) && collision2 == false) {
+            if (pos.col-i >= 0 && board.otherpiecechecker(pos,0,-i) && collision2 == false) {
                 output.push(Square.at((pos.row),(pos.col-i)));
             } else {
                 collision2 = true
             }
-            if (pos.row+i <= GameSettings.BOARD_SIZE-1 && board.otherpiecechecker(pos,1,0) && collision3 == false) {
+            if (pos.row+i <= GameSettings.BOARD_SIZE-1 && board.otherpiecechecker(pos,i,0) && collision3 == false) {
                 output.push(Square.at((pos.row+i),(pos.col)));
             } else {
                 collision3 = true
             }
-            if (pos.row-i >= 0 && board.otherpiecechecker(pos,-1,0) && collision4 == false) {
+            if (pos.row-i >= 0 && board.otherpiecechecker(pos,-i,0) && collision4 == false) {
                 output.push(Square.at((pos.row-i),(pos.col)));
             } else {
                 collision4 = true
