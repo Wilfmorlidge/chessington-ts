@@ -2,6 +2,7 @@ import Piece from './piece';
 import Player from '../player';
 import Board from '../board';
 import Square from '../square';
+import GameSettings from '../gameSettings';
 
 export default class Pawn extends Piece {
     public has_moved: boolean = false;
@@ -14,15 +15,15 @@ export default class Pawn extends Piece {
     public getAvailableMoves(board: Board) {
         var output: Square[] = [];
         var pos = board.findPiece(this);
-        if (this.player1 == Player.WHITE && board.otherpiecechecker(pos,1,0)) {
+        if (this.player1 == Player.WHITE && board.otherpiecechecker(pos,1,0) && pos.row+1 <= GameSettings.BOARD_SIZE-1) {
             output.push(Square.at((pos.row+1),(pos.col)));
-            if (this.has_moved == false && board.otherpiecechecker(pos,2,0)) {
+            if (this.has_moved == false && board.otherpiecechecker(pos,2,0) && pos.row+2 <= GameSettings.BOARD_SIZE-1) {
                 output.push(Square.at((pos.row+2),(pos.col)));
             }
         }
-        if (this.player1 == Player.BLACK && board.otherpiecechecker(pos,-1,0)) {
+        if (this.player1 == Player.BLACK && board.otherpiecechecker(pos,-1,0) && pos.row-1 >= 0) {
             output.push(Square.at((pos.row-1),(pos.col)));
-            if (this.has_moved == false && board.otherpiecechecker(pos,-2,0)) {
+            if (this.has_moved == false && board.otherpiecechecker(pos,-2,0) && pos.row-2 >= 0) {
                 output.push(Square.at((pos.row-2),(pos.col)));
             }
         }
