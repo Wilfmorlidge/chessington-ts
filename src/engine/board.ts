@@ -23,8 +23,10 @@ export default class Board {
     public otherpiecechecker(pos:Square,row:number,col:number) {
         if (this.getPiece(Square.at((pos.row+row),(pos.col+col))) == undefined) {
             return true
+        } else {
+
+            return false
         }
-        return false
     }
 
     public findPiece(pieceToFind: Piece) {

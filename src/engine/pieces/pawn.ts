@@ -22,7 +22,7 @@ export default class Pawn extends Piece {
         }
         if (this.player1 == Player.BLACK && board.otherpiecechecker(pos,-1,0)) {
             output.push(Square.at((pos.row-1),(pos.col)));
-            if (this.has_moved == false && board.otherpiecechecker(pos,1,0)) {
+            if (this.has_moved == false && board.otherpiecechecker(pos,-2,0)) {
                 output.push(Square.at((pos.row-2),(pos.col)));
             }
         }
