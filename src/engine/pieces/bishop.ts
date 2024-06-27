@@ -25,7 +25,7 @@ export default class Bishop extends Piece {
                 collisions[0] = true
             }
 
-            check = board.otherpiecechecker1(pos,-i,+i,collisions[1],this.player1)
+            check = board.otherpiecechecker1(pos,-i,i,collisions[1],this.player1)
             if (pos.row-i >= 0 && pos.col+i <= GameSettings.BOARD_SIZE-1 && check[0] == "true" && collisions[1] == false) {
                 output.push(Square.at((pos.row-i),(pos.col+i)));
                 if (check[1] == "true") {
@@ -34,13 +34,21 @@ export default class Bishop extends Piece {
             }else {
                 collisions[1] = true
             }
-            if (pos.row+i <= GameSettings.BOARD_SIZE-1 && pos.col-i >= 0 && board.otherpiecechecker(pos,i,-i) && collisions[2] == false) {
+            check = board.otherpiecechecker1(pos,i,-i,collisions[1],this.player1)
+            if (pos.row+i <= GameSettings.BOARD_SIZE-1 && pos.col-i >= 0 && check[0] == "true" && collisions[2] == false) {
                 output.push(Square.at((pos.row+i),(pos.col-i)));
-            }else {
+                if (check[1] == "true") {
+                    collisions[2] = true
+                }
+            } else {
                 collisions[2] = true
             }
-            if (pos.row-i >= 0 && pos.col-i >= 0 && board.otherpiecechecker(pos,-i,-i) && collisions[3] == false) {
+            check = board.otherpiecechecker1(pos,-i,-i,collisions[1],this.player1)
+            if (pos.row-i >= 0 && pos.col-i >= 0 && check[0] == "true" && collisions[3] == false) {
                 output.push(Square.at((pos.row-i),(pos.col-i)));
+                if (check[1] == "true") {
+                    collisions[3] = true
+                }
             }else {
                 collisions[3] = true
             }
