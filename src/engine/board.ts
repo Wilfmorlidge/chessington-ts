@@ -2,6 +2,7 @@ import Player from './player';
 import GameSettings from './gameSettings';
 import Square from './square';
 import Piece from './pieces/piece';
+import King from './pieces/king';
 
 export default class Board {
     public currentPlayer: Player;
@@ -29,6 +30,23 @@ export default class Board {
             }
         } else {
             return false
+        }
+    }
+
+    public otherpiecechecker1(pos:Square,row:number,col:number,flag: Boolean = false, player2: Player = Player.WHITE) {
+        if (pos.row+row <= GameSettings.BOARD_SIZE-1 && pos.row+row >= 0 && pos.col <= GameSettings.BOARD_SIZE-1 && pos.col >= 0) {
+            var piece: Piece | undefined = this.getPiece(Square.at((pos.row+row),(pos.col+col)));
+            if (piece == undefined) {
+                return ["true","false"]
+            } else {
+                if (piece.player != player2 && !(piece instanceof King)) {
+                    return ["true","true"]
+                } else {
+                    return ["false","false"]
+                }
+            }
+        } else {
+            return ["false","false"]
         }
     }
 
