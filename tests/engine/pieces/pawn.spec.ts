@@ -83,6 +83,34 @@ describe('Pawn', () => {
 
             moves.should.not.deep.include(Square.at(5, 3));
         });
+
+            
+    it('can en passant a black pawn', () => {
+        const pawn = new Pawn(Player.WHITE);
+        board.setPiece(Square.at(3, 3), pawn);
+        const enemypawn = new Pawn(Player.BLACK);
+        board.setPiece(Square.at(5,5),enemypawn);
+        enemypawn.moveTo(board, Square.at(3, 5));
+
+        const moves = pawn.getAvailableMoves(board);
+        console.log(moves);
+
+        moves.should.deep.include(Square.at(4, 5));
+    });
+
+    it('cannot en passant a black pawn when inappropriate', () => {
+        const pawn = new Pawn(Player.WHITE);
+        board.setPiece(Square.at(3, 3), pawn);
+        const enemypawn = new Pawn(Player.BLACK);
+        board.setPiece(Square.at(4,5),enemypawn);
+        enemypawn.moveTo(board, Square.at(3, 5));
+
+        const moves = pawn.getAvailableMoves(board);
+        console.log(moves)
+
+        moves.should.not.deep.include(Square.at(4, 5));
+    });
+        
     });
 
     describe('black pawns', () => {
@@ -161,6 +189,30 @@ describe('Pawn', () => {
 
             moves.should.not.deep.include(Square.at(3, 3));
         });
+
+        it('can en passant a white pawn', () => {
+            const pawn = new Pawn(Player.BLACK);
+            board.setPiece(Square.at(3, 3), pawn);
+            const enemypawn = new Pawn(Player.WHITE);
+            board.setPiece(Square.at(1,4),enemypawn);
+            enemypawn.moveTo(board, Square.at(3, 4));
+    
+            const moves = pawn.getAvailableMoves(board);
+    
+            moves.should.deep.include(Square.at(2, 4));
+        });
+    
+        it('cannot en passant a white pawn when inappropriate', () => {
+            const pawn = new Pawn(Player.BLACK);
+            board.setPiece(Square.at(3, 3), pawn);
+            const enemypawn = new Pawn(Player.WHITE);
+            board.setPiece(Square.at(2,4),enemypawn);
+            enemypawn.moveTo(board, Square.at(3, 4));
+    
+            const moves = pawn.getAvailableMoves(board);
+    
+            moves.should.not.deep.include(Square.at(2, 4));
+        });
     });
 
     it('cannot move if there is a piece in front', () => {
@@ -184,4 +236,6 @@ describe('Pawn', () => {
 
         moves.should.not.deep.include(Square.at(4, 3));
     });
+
+
 });

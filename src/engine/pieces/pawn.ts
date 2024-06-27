@@ -52,17 +52,17 @@ export default class Pawn extends Piece {
         }
 
         // defining movement in en Passant
-        if (this.player1 == Player.WHITE && (board.getPiece(Square.at(pos.row,pos.col+1)) instanceof Pawn) && (board.lastmovepiece instanceof Pawn) && ((board.lastmovestart - board.lastmoveend) == 2)) {
+        if (this.player1 == Player.WHITE && (board.getPiece(Square.at(pos.row,pos.col+1)) == board.lastmovepiece) && (board.lastmovepiece instanceof Pawn) && ((board.lastmovestart.row - board.lastmoveend.row) == 2)) {
             output.push(Square.at((pos.row+1),(pos.col+1)));
         }
-        if (this.player1 == Player.WHITE && (board.getPiece(Square.at(pos.row,pos.col-1)) instanceof Pawn) && (board.lastmovepiece instanceof Pawn) && ((board.lastmovestart - board.lastmoveend) == 2)) {
+        if (this.player1 == Player.WHITE && (board.getPiece(Square.at(pos.row,pos.col-1)) == board.lastmovepiece) && (board.lastmovepiece instanceof Pawn) && ((board.lastmovestart.row - board.lastmoveend.row) == 2)) {
             output.push(Square.at((pos.row+1),(pos.col-1)));
         }
 
-        if (this.player1 == Player.BLACK && (board.getPiece(Square.at(pos.row,pos.col+1)) instanceof Pawn) && (board.lastmovepiece instanceof Pawn) && ((board.lastmovestart - board.lastmoveend) == -2)) {
+        if (this.player1 == Player.BLACK && (board.getPiece(Square.at(pos.row,pos.col+1)) == board.lastmovepiece) && (board.lastmovepiece instanceof Pawn) && ((board.lastmovestart.row - board.lastmoveend.row) == -2)) {
             output.push(Square.at((pos.row-1),(pos.col+1)));
         }
-        if (this.player1 == Player.BLACK && (board.getPiece(Square.at(pos.row,pos.col-1)) instanceof Pawn) && (board.lastmovepiece instanceof Pawn) && ((board.lastmovestart - board.lastmoveend) == -2)) {
+        if (this.player1 == Player.BLACK && (board.getPiece(Square.at(pos.row,pos.col-1)) == board.lastmovepiece) && (board.lastmovepiece instanceof Pawn) && ((board.lastmovestart.row - board.lastmoveend.row) == -2)) {
             output.push(Square.at((pos.row-1),(pos.col-1)));
         }
 

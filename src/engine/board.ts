@@ -74,9 +74,9 @@ export default class Board {
         this.lastmovepiece = movingPiece;
         if ((fromSquare.col != toSquare.col) && (movingPiece instanceof Pawn) && this.getPiece(toSquare) == undefined) {
                 if (fromSquare.col == toSquare.col + 1) {
-                    this.setPiece(Square.at(fromSquare.row,fromSquare.col+1),undefined);
+                    this.setPiece(Square.at(fromSquare.row,toSquare.col),undefined);
                 } else {
-                    this.setPiece(Square.at(fromSquare.row,fromSquare.col-1),undefined);
+                    this.setPiece(Square.at(fromSquare.row,toSquare.col),undefined);
                 }
         }
         if (!!movingPiece && movingPiece.player === this.currentPlayer) {
