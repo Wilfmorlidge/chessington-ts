@@ -13,30 +13,36 @@ export default class Bishop extends Piece {
     public getAvailableMoves(board: Board) {
         var output: Square[] = [];
         var pos = board.findPiece(this);
-        var collision1: Boolean = false;
-        var collision2: Boolean = false;
-        var collision3: Boolean = false;
-        var collision4: Boolean = false;
+        var collisions: Boolean[] = [false,false,false,false]
         for (let i = 1;i <= (GameSettings.BOARD_SIZE-1);i++) {
-            if (pos.row+i <= GameSettings.BOARD_SIZE-1 && pos.col+i <= GameSettings.BOARD_SIZE-1 && board.otherpiecechecker(pos,i,i) && collision1 == false) {
+            var check: String[] = board.otherpiecechecker1(pos,i,i,collisions[0],this.player1)
+            if (pos.row+i <= GameSettings.BOARD_SIZE-1 && pos.col+i <= GameSettings.BOARD_SIZE-1 && check[0] == "true" && collisions[0] == false) {
                 output.push(Square.at((pos.row+i),(pos.col+i)));
+                if (check[1] == "true") {
+                    collisions[0] = true
+                }
             }else {
-                collision1 = true
+                collisions[0] = true
             }
-            if (pos.row-i >= 0 && pos.col+i <= GameSettings.BOARD_SIZE-1 && board.otherpiecechecker(pos,-i,i) && collision2 == false) {
+
+            check = board.otherpiecechecker1(pos,-i,+i,collisions[1],this.player1)
+            if (pos.row-i >= 0 && pos.col+i <= GameSettings.BOARD_SIZE-1 && check[0] == "true" && collisions[1] == false) {
                 output.push(Square.at((pos.row-i),(pos.col+i)));
+                if (check[1] == "true") {
+                    collisions[0] = true
+                }
             }else {
-                collision2 = true
+                collisions[1] = true
             }
-            if (pos.row+i <= GameSettings.BOARD_SIZE-1 && pos.col-i >= 0 && board.otherpiecechecker(pos,i,-i) && collision3 == false) {
+            if (pos.row+i <= GameSettings.BOARD_SIZE-1 && pos.col-i >= 0 && board.otherpiecechecker(pos,i,-i) && collisions[2] == false) {
                 output.push(Square.at((pos.row+i),(pos.col-i)));
             }else {
-                collision3 = true
+                collisions[2] = true
             }
-            if (pos.row-i >= 0 && pos.col-i >= 0 && board.otherpiecechecker(pos,-i,-i) && collision4 == false) {
+            if (pos.row-i >= 0 && pos.col-i >= 0 && board.otherpiecechecker(pos,-i,-i) && collisions[3] == false) {
                 output.push(Square.at((pos.row-i),(pos.col-i)));
             }else {
-                collision4 = true
+                collisions[3] = true
             }
         }
         return output;
