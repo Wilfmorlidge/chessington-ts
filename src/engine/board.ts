@@ -3,9 +3,13 @@ import GameSettings from './gameSettings';
 import Square from './square';
 import Piece from './pieces/piece';
 import King from './pieces/king';
+import Pawn from './pieces/pawn';
 
 export default class Board {
     public currentPlayer: Player;
+    public lastmovestart: any = null;
+    public lastmoveend: any = null;
+    public lastmovepiece: any = null;
     private readonly board: (Piece | undefined)[][];
 
     public constructor(currentPlayer?: Player) {
@@ -13,7 +17,7 @@ export default class Board {
         this.board = this.createBoard();
     }
 
-    public setPiece(square: Square, piece: Piece | undefined) {
+    public setPiece(square: Square, piece: any) {
         this.board[square.row][square.col] = piece;
     }
 
@@ -64,7 +68,17 @@ export default class Board {
     }
 
     public movePiece(fromSquare: Square, toSquare: Square) {
-        const movingPiece = this.getPiece(fromSquare);        
+        const movingPiece = this.getPiece(fromSquare);
+        this.lastmovestart = fromSquare;
+        this.lastmoveend = toSquare;
+        this.lastmovepiece = movingPiece;
+        if ((fromSquare.col != toSquare.col) && (movingPiece instanceof Pawn) && this.getPiece(toSquare) == undefined) {
+                if (fromSquare.col == toSquare.col + 1) {
+                    this.setPiece(Square.at(fromSquare.row,fromSquare.col+1),undefined);
+                } else {
+                    this.setPiece(Square.at(fromSquare.row,fromSquare.col-1),undefined);
+                }
+        }
         if (!!movingPiece && movingPiece.player === this.currentPlayer) {
             this.setPiece(toSquare, movingPiece);
             this.setPiece(fromSquare, undefined);
