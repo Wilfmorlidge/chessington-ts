@@ -15,17 +15,40 @@ export default class Pawn extends Piece {
     public getAvailableMoves(board: Board) {
         var output: Square[] = [];
         var pos = board.findPiece(this);
-        if (this.player1 == Player.WHITE && board.otherpiecechecker(pos,1,0)) {
+        var collisions: Boolean[] = [false,false,false,false,false,false,false,false]
+        var check: String[] = board.otherpiecechecker1(pos,1,0,collisions[0],this.player1)
+        if (this.player1 == Player.WHITE && check[0] == "true" && check[1] == "false" && pos.row+1 <= GameSettings.BOARD_SIZE-1) {
             output.push(Square.at((pos.row+1),(pos.col)));
-            if (this.has_moved == false && board.otherpiecechecker(pos,1,0)  && board.otherpiecechecker(pos,2,0)) {
+            var check1: String[] = board.otherpiecechecker1(pos,2,0,collisions[1],this.player1)
+            if (this.has_moved == false && check[0] == "true" && check[1] == "false" && check1[0] == "true" && check1[1] == "false" && pos.row+2 <= GameSettings.BOARD_SIZE-1) {
                 output.push(Square.at((pos.row+2),(pos.col)));
             }
         }
-        if (this.player1 == Player.BLACK && board.otherpiecechecker(pos,-1,0)) {
+        check = board.otherpiecechecker1(pos,1,1,collisions[2],this.player1)
+        if (pos.row+1 <= GameSettings.BOARD_SIZE-1 && pos.col+1 <= GameSettings.BOARD_SIZE-1 && this.player1 == Player.WHITE && check[0] == "true" && check[1] == "true") {
+            output.push(Square.at((pos.row+1),(pos.col+1)));
+        }
+        check = board.otherpiecechecker1(pos,1,-1,collisions[3],this.player1)
+        if (pos.row+1 <= GameSettings.BOARD_SIZE-1 && pos.col-1 >= 0 && this.player1 == Player.WHITE && check[0] == "true" && check[1] == "true") {
+            output.push(Square.at((pos.row+1),(pos.col-1)));
+        }
+
+        check = board.otherpiecechecker1(pos,-1,0,collisions[4],this.player1)
+        if (this.player1 == Player.BLACK && check[0] == "true" && check[1] == "false" && pos.row-1 >= 0) {
             output.push(Square.at((pos.row-1),(pos.col)));
-            if (this.has_moved == false && board.otherpiecechecker(pos,-1,0) && board.otherpiecechecker(pos,-2,0) && pos.row-2 >= 0) {
+            check1 = board.otherpiecechecker1(pos,-2,0,collisions[5],this.player1)
+            if (this.has_moved == false && check[0] == "true" && check[1] == "false" && check1[0] == "true" && check1[1] == "false" && pos.row-2 >= 0) {
                 output.push(Square.at((pos.row-2),(pos.col)));
             }
+        }
+
+        check = board.otherpiecechecker1(pos,-1,+1,collisions[2],this.player1)
+        if (pos.row-1 >= 0 && pos.col+1 <= GameSettings.BOARD_SIZE-1 && this.player1 == Player.BLACK && check[0] == "true" && check[1] == "true") {
+            output.push(Square.at((pos.row-1),(pos.col+1)));
+        }
+        check = board.otherpiecechecker1(pos,-1,-1,collisions[3],this.player1)
+        if (pos.row-1 >= 0 && pos.col-1 >= 0 && this.player1 == Player.BLACK && check[0] == "true" && check[1] == "true") {
+            output.push(Square.at((pos.row-1),(pos.col-1)));
         }
         return output;
         //identify pawns position
