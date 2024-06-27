@@ -8,6 +8,7 @@ export default class Knight extends Piece {
     public player1: Player = Player.WHITE;
     public constructor(player: Player) {
         super(player);
+        this.player1 = player
     }
 
     public getAvailableMoves(board: Board) {
