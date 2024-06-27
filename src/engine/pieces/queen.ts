@@ -13,56 +13,82 @@ export default class Queen extends Piece {
     public getAvailableMoves(board: Board) {
         var output: Square[] = [];
         var pos = board.findPiece(this);
-        var collision1: Boolean = false;
-        var collision2: Boolean = false;
-        var collision3: Boolean = false;
-        var collision4: Boolean = false;
-        var collision5: Boolean = false;
-        var collision6: Boolean = false;
-        var collision7: Boolean = false;
-        var collision8: Boolean = false;
+        var collisions: Boolean[] = [false,false,false,false,false,false,false,false]
         for (let i = 1;i <= (GameSettings.BOARD_SIZE-1);i++) {
             // defines movement as a rook
-            if (pos.col+i <= GameSettings.BOARD_SIZE-1 && board.otherpiecechecker(pos,0,i) && collision1 == false) {
+            var check: String[] = board.otherpiecechecker1(pos,0,i,collisions[0],this.player1)
+            if (pos.col+i <= GameSettings.BOARD_SIZE-1 && check[0] == "true" && collisions[0] == false) {
                 output.push(Square.at((pos.row),(pos.col+i)));
+                if (check[1] == "true") {
+                    collisions[0] = true
+                }
             } else {
-                collision1 = true
+                collisions[0] = true
             }
-            if (pos.col-i >= 0 && board.otherpiecechecker(pos,0,-i) && collision2 == false) {
+            check = board.otherpiecechecker1(pos,0,-i,collisions[1],this.player1)
+            if (pos.col-i >= 0 && check[0] == "true" && collisions[1] == false) {
                 output.push(Square.at((pos.row),(pos.col-i)));
+                if (check[1] == "true") {
+                    collisions[1] = true
+                }
             } else {
-                collision2 = true
+                collisions[1] = true
             }
-            if (pos.row+i <= GameSettings.BOARD_SIZE-1 && board.otherpiecechecker(pos,i,0) && collision3 == false) {
+            check = board.otherpiecechecker1(pos,i,0,collisions[2],this.player1)
+            if (pos.row+i <= GameSettings.BOARD_SIZE-1 && check[0] == "true" && collisions[2] == false) {
                 output.push(Square.at((pos.row+i),(pos.col)));
+                if (check[1] == "true") {
+                    collisions[2] = true
+                }
             } else {
-                collision3 = true
+                collisions[2] = true
             }
-            if (pos.row-i >= 0 && board.otherpiecechecker(pos,-i,0) && collision4 == false) {
-                output.push(Square.at((pos.row-i),(pos.col)) );
-            }else {
-                collision4 = true
+            check = board.otherpiecechecker1(pos,-i,0,collisions[3],this.player)
+            if (pos.row-i >= 0 && check[0] == "true" && collisions[3] == false) {
+                output.push(Square.at((pos.row-i),(pos.col)));
+                if (check[1] == "true") {
+                    collisions[3] = true
+                }
+            } else {
+                collisions[3] = true
             }
             // defines movement as a bishop
-            if (pos.row+i <= GameSettings.BOARD_SIZE-1 && pos.col+i <= GameSettings.BOARD_SIZE-1 && board.otherpiecechecker(pos,i,i) && collision5 == false) {
+            check = board.otherpiecechecker1(pos,i,i,collisions[4],this.player1)
+            if (pos.row+i <= GameSettings.BOARD_SIZE-1 && pos.col+i <= GameSettings.BOARD_SIZE-1 && check[0] == "true" && collisions[4] == false) {
                 output.push(Square.at((pos.row+i),(pos.col+i)));
+                if (check[1] == "true") {
+                    collisions[4] = true
+                }
             }else {
-                collision5 = true
+                collisions[4] = true
             }
-            if (pos.row-i >= 0 && pos.col+i <= GameSettings.BOARD_SIZE-1 && board.otherpiecechecker(pos,-i,i) && collision6 == false) {
+
+            check = board.otherpiecechecker1(pos,-i,i,collisions[5],this.player1)
+            if (pos.row-i >= 0 && pos.col+i <= GameSettings.BOARD_SIZE-1 && check[0] == "true" && collisions[5] == false) {
                 output.push(Square.at((pos.row-i),(pos.col+i)));
+                if (check[1] == "true") {
+                    collisions[5] = true
+                }
             }else {
-                collision6 = true
+                collisions[5] = true
             }
-            if (pos.row+i <= GameSettings.BOARD_SIZE-1 && pos.col-i >= 0 && board.otherpiecechecker(pos,i,-i) && collision7 == false) {
+            check = board.otherpiecechecker1(pos,i,-i,collisions[6],this.player1)
+            if (pos.row+i <= GameSettings.BOARD_SIZE-1 && pos.col-i >= 0 && check[0] == "true" && collisions[6] == false) {
                 output.push(Square.at((pos.row+i),(pos.col-i)));
-            }else {
-                collision7 = true
+                if (check[1] == "true") {
+                    collisions[6] = true
+                }
+            } else {
+                collisions[6] = true
             }
-            if (pos.row-i >= 0 && pos.col-i >= 0 && board.otherpiecechecker(pos,-i,-i) && collision8 == false) {
+            check = board.otherpiecechecker1(pos,-i,-i,collisions[7],this.player1)
+            if (pos.row-i >= 0 && pos.col-i >= 0 && check[0] == "true" && collisions[7] == false) {
                 output.push(Square.at((pos.row-i),(pos.col-i)));
+                if (check[1] == "true") {
+                    collisions[7] = true
+                }
             }else {
-                collision8 = true
+                collisions[7] = true
             }
         }
     return output
