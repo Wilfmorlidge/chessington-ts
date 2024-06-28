@@ -1,6 +1,8 @@
 import Player from '../player';
 import Board from '../board';
 import Square from '../square';
+import GameSettings from '../gameSettings';
+import King from './king';
 
 export default class Piece {
     public has_moved: boolean = false;
@@ -20,4 +22,5 @@ export default class Piece {
         board.movePiece(currentSquare, newSquare);
         this.has_moved = true
     }
+
 }

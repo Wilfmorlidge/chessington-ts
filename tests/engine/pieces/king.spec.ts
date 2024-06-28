@@ -80,21 +80,21 @@ describe('King', () => {
         const king = new King(Player.WHITE);
         const friendlyRook = new Rook(Player.WHITE);
         board.setPiece(Square.at(0, 4), king);
-        board.setPiece(Square.at(0,0),friendlyRook);
+        board.setPiece(Square.at(0,7),friendlyRook);
 
         const moves = king.getAvailableMoves(board);
 
-        moves.should.deep.include(Square.at(0, 3));
+        moves.should.deep.include(Square.at(0, 6));
     });
     it('cannot castle where inappropriate', () => {
         const king = new King(Player.WHITE);
         const friendlyRook = new Rook(Player.WHITE);
         board.setPiece(Square.at(0, 4), king);
-        board.setPiece(Square.at(0,0),friendlyRook);
-        friendlyRook.moveTo(board, Square.at(0, 1));
+        board.setPiece(Square.at(0,7),friendlyRook);
+        friendlyRook.moveTo(board, Square.at(0, 6));
 
         const moves = king.getAvailableMoves(board);
 
-        moves.should.not.deep.include(Square.at(0, 3));
+        moves.should.not.deep.include(Square.at(0, 6));
     });
 });
