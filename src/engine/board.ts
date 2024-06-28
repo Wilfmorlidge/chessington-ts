@@ -72,6 +72,8 @@ export default class Board {
         this.lastmovestart = fromSquare;
         this.lastmoveend = toSquare;
         this.lastmovepiece = movingPiece;
+
+        // defining special case 'en passant'
         if ((fromSquare.col != toSquare.col) && (movingPiece instanceof Pawn) && this.getPiece(toSquare) == undefined) {
                 if (fromSquare.col == toSquare.col + 1) {
                     this.setPiece(Square.at(fromSquare.row,toSquare.col),undefined);
@@ -79,6 +81,12 @@ export default class Board {
                     this.setPiece(Square.at(fromSquare.row,toSquare.col),undefined);
                 }
         }
+
+        // defining special case 'castling'
+            // move the king
+            // move the rook
+            // acquire and update the rooks has_moved value
+
         if (!!movingPiece && movingPiece.player === this.currentPlayer) {
             this.setPiece(toSquare, movingPiece);
             this.setPiece(fromSquare, undefined);

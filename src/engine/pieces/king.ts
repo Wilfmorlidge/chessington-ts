@@ -5,6 +5,7 @@ import Square from '../square';
 import GameSettings from '../gameSettings';
 
 export default class King extends Piece {
+    public has_moved: boolean = false;
     public player1: Player = Player.WHITE;
     public constructor(player: Player) {
         super(player);
@@ -89,8 +90,21 @@ export default class King extends Piece {
             }
         }else {
             collisions[7] = true
+
+        //defines castling movement
+        //move two squares towards an unmoved rook
+        //swap rook to position of first square passed over
+        // only allowed if king has also not moved
+        //both the squares into which the king and rook move must be unoccupied
+        // king cannot leave, crossover or finish in a threatened square
+            // should probably make an is-threatened function
     }
 return output
+}
+public moveTo(board: Board, newSquare: Square) {
+    const currentSquare = board.findPiece(this);
+    board.movePiece(currentSquare, newSquare);
+    this.has_moved = true
 }
 }
 
