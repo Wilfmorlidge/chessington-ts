@@ -24,19 +24,7 @@ export default class Board {
     public getPiece(square: Square) {
         return this.board[square.row][square.col];
     }
-
-    public otherpiecechecker(pos:Square,row:number,col:number) {
-        if (pos.row+row <= GameSettings.BOARD_SIZE-1 && pos.row+row >= 0 && pos.col <= GameSettings.BOARD_SIZE-1 && pos.col >= 0) {
-            if (this.getPiece(Square.at((pos.row+row),(pos.col+col))) == undefined) {
-                return true
-            } else {
-                return false
-            }
-        } else {
-            return false
-        }
-    }
-
+    
     public otherpiecechecker1(pos:Square,row:number,col:number,flag: Boolean = false, player2: Player = Player.WHITE) {
         if (pos.row+row <= GameSettings.BOARD_SIZE-1 && pos.row+row >= 0 && pos.col <= GameSettings.BOARD_SIZE-1 && pos.col >= 0) {
             var piece: Piece | undefined = this.getPiece(Square.at((pos.row+row),(pos.col+col)));
@@ -53,6 +41,7 @@ export default class Board {
             return ["false","false"]
         }
     }
+
 
 
 
