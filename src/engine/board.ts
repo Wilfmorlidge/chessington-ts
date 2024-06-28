@@ -42,15 +42,15 @@ export default class Board {
         }
     }
 
-    public movevalidator (pos:Square,row:number,col:number,collisions: Boolean[],player: Player,output: Square|null = null) {
+    public movevalidator (pos:Square,row:number,col:number,collisions: Boolean[],collision: number,player: Player,output: Square[]) {
         var check: String[] = this.otherpiecechecker1(pos,row,col,collisions[0],player);
-        if (pos.row+row <= GameSettings.BOARD_SIZE-1 && pos.col+col <= GameSettings.BOARD_SIZE-1 && check[0] == "true" && collisions[0] == false) {
-            output = Square.at((pos.row+row),(pos.col+col));
+        if (pos.row+row <= GameSettings.BOARD_SIZE-1 && pos.col+col <= GameSettings.BOARD_SIZE-1 && pos.row+row >= 0 && pos.col+col >= 0 && check[0] == "true" && collisions[collision] == false) {
+            output.push(Square.at((pos.row+row),(pos.col+col)));
             if (check[1] == "true") {
-                collisions[0] = true
+                collisions[collision] = true
             }
         }else {
-            collisions[0] = true
+            collisions[collision] = true
         }
         return output
     }

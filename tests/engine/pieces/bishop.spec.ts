@@ -22,7 +22,7 @@ describe('Bishop', () => {
             Square.at(0, 5), Square.at(1, 4), Square.at(3, 2), Square.at(4, 1), Square.at(5, 0)
         ];
 
-        moves.should.deep.include.members(expectedMoves);
+        moves?.should.deep.include.members(expectedMoves);
     });
 
     it('cannot make any other moves', () => {
@@ -31,7 +31,7 @@ describe('Bishop', () => {
 
         const moves = bishop.getAvailableMoves(board);
 
-        moves.should.have.length(11);
+        moves?.should.have.length(11);
     });
 
     it('cannot move through friendly pieces', () => {
@@ -42,7 +42,7 @@ describe('Bishop', () => {
 
         const moves = bishop.getAvailableMoves(board);
 
-        moves.should.not.deep.include(Square.at(7, 7));
+        moves?.should.not.deep.include(Square.at(7, 7));
     });
 
     it('cannot move through opposing pieces', () => {
@@ -53,7 +53,7 @@ describe('Bishop', () => {
 
         const moves = bishop.getAvailableMoves(board);
 
-        moves.should.not.deep.include(Square.at(7, 7));
+        moves?.should.not.deep.include(Square.at(7, 7));
     });
 
     it('can take opposing pieces', () => {
@@ -64,7 +64,7 @@ describe('Bishop', () => {
 
         const moves = bishop.getAvailableMoves(board);
 
-        moves.should.deep.include(Square.at(6, 6));
+        moves?.should.deep.include(Square.at(6, 6));
     });
 
     it('cannot take the opposing king', () => {
@@ -75,7 +75,7 @@ describe('Bishop', () => {
 
         const moves = bishop.getAvailableMoves(board);
 
-        moves.should.not.deep.include(Square.at(6, 6));
+        moves?.should.not.deep.include(Square.at(6, 6));
     });
 
     it('cannot take friendly pieces', () => {
@@ -86,6 +86,6 @@ describe('Bishop', () => {
 
         const moves = bishop.getAvailableMoves(board);
 
-        moves.should.not.deep.include(Square.at(6, 6));
+        moves?.should.not.deep.include(Square.at(6, 6));
     });
 });

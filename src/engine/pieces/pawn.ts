@@ -14,6 +14,10 @@ export default class Pawn extends Piece {
         var pos = board.findPiece(this);
         var collisions: Boolean[] = [false,false,false,false,false,false,false,false]
         var check: String[] = board.otherpiecechecker1(pos,1,0,collisions[0],this.player)
+        // regular movement
+            //not applicable
+        //special movement
+            //pawn movement
         if (this.player == Player.WHITE && check[0] == "true" && check[1] == "false" && pos.row+1 <= GameSettings.BOARD_SIZE-1) {
             output.push(Square.at((pos.row+1),(pos.col)));
             var check1: String[] = board.otherpiecechecker1(pos,2,0,collisions[1],this.player)
@@ -48,7 +52,7 @@ export default class Pawn extends Piece {
             output.push(Square.at((pos.row-1),(pos.col-1)));
         }
 
-        // defining movement in en Passant
+        // en passant
         if (this.player == Player.WHITE && (board.getPiece(Square.at(pos.row,pos.col+1)) == board.lastmovepiece) && (board.lastmovepiece instanceof Pawn) && ((board.lastmovestart.row - board.lastmoveend.row) == 2)) {
             output.push(Square.at((pos.row+1),(pos.col+1)));
         }
@@ -68,11 +72,6 @@ export default class Pawn extends Piece {
         //identify pawns position
         // identify which adjacent positions are occupied
         // for every unoccupied position, append to array
-    }
-    public moveTo(board: Board, newSquare: Square) {
-        const currentSquare = board.findPiece(this);
-        board.movePiece(currentSquare, newSquare);
-        this.has_moved = true
     }
 
 
