@@ -24,7 +24,7 @@ export default class Board {
     public getPiece(square: Square) {
         return this.board[square.row][square.col];
     }
-    
+
     public otherpiecechecker1(pos:Square,row:number,col:number,flag: Boolean = false, player2: Player = Player.WHITE) {
         if (pos.row+row <= GameSettings.BOARD_SIZE-1 && pos.row+row >= 0 && pos.col <= GameSettings.BOARD_SIZE-1 && pos.col >= 0) {
             var piece: Piece | undefined = this.getPiece(Square.at((pos.row+row),(pos.col+col)));
@@ -42,6 +42,18 @@ export default class Board {
         }
     }
 
+    public movevalidator (pos:Square,row:number,col:number,collisions: Boolean[],player: Player,output: Square|null = null) {
+        var check: String[] = this.otherpiecechecker1(pos,row,col,collisions[0],player);
+        if (pos.row+row <= GameSettings.BOARD_SIZE-1 && pos.col+col <= GameSettings.BOARD_SIZE-1 && check[0] == "true" && collisions[0] == false) {
+            output = Square.at((pos.row+row),(pos.col+col));
+            if (check[1] == "true") {
+                collisions[0] = true
+            }
+        }else {
+            collisions[0] = true
+        }
+        return output
+    }
 
 
 
